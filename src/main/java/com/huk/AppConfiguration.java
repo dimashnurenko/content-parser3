@@ -10,10 +10,8 @@ import java.util.Properties;
 import static org.hibernate.cfg.AvailableSettings.*;
 import static org.hibernate.cfg.AvailableSettings.SHOW_SQL;
 
-
-
 @Configuration
-@ComponentScan("com.huk")
+@ComponentScan("com.huk.services")
 public class AppConfiguration {
 
 
