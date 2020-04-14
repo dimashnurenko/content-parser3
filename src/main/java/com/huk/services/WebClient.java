@@ -7,8 +7,11 @@ import java.io.IOException;
 
 @Component
 public class WebClient {
-    public Document getPage(String url) throws IOException{
-
-        return (Document) Jsoup.connect(url).get();
+    public Document getPage(String url) throws IOException {
+//        try {
+            return (Document) Jsoup.connect(url).get();
+//        } catch (IOException e) {
+//throw  new WebClientExeption("Cannot fetch Web page ", e);
+//        }
     }
 }
