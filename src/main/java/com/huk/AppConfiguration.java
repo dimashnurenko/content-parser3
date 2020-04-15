@@ -21,13 +21,13 @@ public class AppConfiguration {
             org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
             Properties settings = new Properties();
             settings.put(DRIVER, "org.postgresql.Driver");
-            settings.put(URL, "jdbc:postgresql://localhost:5432/postgres?useSSL=false");
+            settings.put(URL, "jdbc:postgresql://localhost:5432/content-parser?useSSL=false");
             settings.put(USER, "postgres");
             settings.put(PASS, "Gook7353110");
             settings.put(DIALECT, "org.hibernate.dialect.MySQL5Dialect");
             settings.put(SHOW_SQL, "true");
             configuration.setProperties(settings);
-           // configuration.addAnnotatedClass(StudentEntity.class);
+            configuration.addAnnotatedClass(SongStatisticEntity.class);
             ServiceRegistry serviceRegistry =
                     new StandardServiceRegistryBuilder().applySettings(configuration.getProperties())
                                                         .build();
