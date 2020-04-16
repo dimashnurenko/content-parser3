@@ -12,6 +12,8 @@ public class SongStatisticEntity {
     private Long id;
     @Column(name = "date")
     private Date date;
+    @Column(name = "timestamp")
+    private Long timestamp;
     @Column(name = "content_url")
     private String contentUrl;
     @Column(name = "content")
@@ -39,6 +41,14 @@ public class SongStatisticEntity {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getContentUrl() {

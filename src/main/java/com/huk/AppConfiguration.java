@@ -1,5 +1,6 @@
 package com.huk;
 
+import com.huk.services.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
@@ -35,5 +36,25 @@ public class AppConfiguration {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Bean
+   public WordFunction amountAllWords(){
+        return new AmountAllWords();
+    }
+
+    @Bean
+    public WordFunction amountPopularWord(){
+        return new AmountPopularWord();
+    }
+
+    @Bean
+    public WordFunction amountSameWords(){
+        return new AmountSameWords();
+    }
+
+    @Bean
+    public WordFunction amountUniqueWords(){
+        return new AmountUniqueWords();
     }
 }

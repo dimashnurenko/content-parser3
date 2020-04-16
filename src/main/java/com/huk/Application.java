@@ -1,15 +1,11 @@
 package com.huk;
 
 import com.huk.SongInfo;
-import com.huk.services.SongTextSaver;
-import com.huk.services.WebClient;
-import com.huk.services.WebPageParser;
+import com.huk.services.*;
 import org.jsoup.nodes.Document;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import java.io.IOException;
 
 
@@ -24,6 +20,9 @@ public class Application {
         Document page = context.getBean(WebClient.class).getPage(url);
         SongInfo songInfo = context.getBean(WebPageParser.class).parsWebPage(page);
         context.getBean(SongTextSaver.class).saveFile(songInfo);
+        SongStatisticEntity songStatisticEntity = context.getBean(SongAnalyzer.class).analyzeSong(songInfo);
+        context.getBean(SongStatisticDao.class).create(songStatisticEntity);
+
     }
 }
 

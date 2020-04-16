@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
-//@Component
+@Component
 public class SongStatisticDao {
     private SessionFactory sessionFactory;
 
