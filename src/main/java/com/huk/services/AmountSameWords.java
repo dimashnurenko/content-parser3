@@ -4,7 +4,7 @@ import com.huk.SongStatisticEntity;
 import com.huk.Word;
 
 import java.util.Map;
-//фильтруем те слова которые используются не больше 1го раза в тексте
+//фильтруем те слова которые используются больше 1го раза в тексте
 public class AmountSameWords implements WordFunction{
     @Override
     public SongStatisticEntity apply(Map<String, Word> stringWordMap, SongStatisticEntity songStatisticEntity) {

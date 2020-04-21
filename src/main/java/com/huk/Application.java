@@ -14,15 +14,10 @@ public class Application {
 
     public static void main(String[] args) throws IOException {
 
-        final String url = "https://altwall.net/texts.php?show=oxxxymiron&number=177385";
+        final String url = "https://teksty-pesenok.ru/jason-gray/tekst-pesni-a-way-to-see-in-the-dark/751911/";
 
         ConfigurableApplicationContext context = SpringApplication.run(Application.class,args);
-        Document page = context.getBean(WebClient.class).getPage(url);
-        SongInfo songInfo = context.getBean(WebPageParser.class).parsWebPage(page);
-        context.getBean(SongTextSaver.class).saveFile(songInfo);
-        SongStatisticEntity songStatisticEntity = context.getBean(SongAnalyzer.class).analyzeSong(songInfo);
-        context.getBean(SongStatisticDao.class).create(songStatisticEntity);
-
+context.getBean(TextAnalyzerService.class).startAnalyzer(url);
     }
 }
 

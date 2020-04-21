@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 @Component
-public class WebPageParser {
+public class WebPageParser implements PageParser {
 
     public SongInfo parsWebPage(Document page){
         Elements elements = page.getElementsByTag("article");

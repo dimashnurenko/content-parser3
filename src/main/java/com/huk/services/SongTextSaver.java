@@ -23,7 +23,7 @@ public class SongTextSaver {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+//Todo добавить обработку Exception
     }
 
 }
