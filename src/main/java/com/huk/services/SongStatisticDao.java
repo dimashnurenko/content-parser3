@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 
+import java.util.List;
 import java.util.function.Function;
 
 @Component
@@ -26,7 +27,7 @@ public class SongStatisticDao {
         }, "Cannot store lyrics statistics to database");
     }
 
-    private <T> T perform(Function<Session, T> dbFunc, String message)  {
+    private <T> T perform(Function<Session, T> dbFunc, String message) {
         try (Session session = sessionFactory.openSession()) {
             try {
                 session.beginTransaction();
@@ -38,6 +39,13 @@ public class SongStatisticDao {
                 throw new DaoException(message, e);
             }
         }
+    }
+
+    public List<SongStatisticEntity> createAll(List<SongStatisticEntity> entities) {
+        for (SongStatisticEntity entity : entities) {
+            create(entity);
+        }
+        return entities;
     }
 
 //    private SongStatisticEntity instanceToEntity(SongStatisticEntity instance) {

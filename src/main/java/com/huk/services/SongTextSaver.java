@@ -3,7 +3,9 @@ package com.huk.services;
 import com.huk.SongInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import java.io.*;
+import java.util.List;
 
 @Component
 public class SongTextSaver {
@@ -13,18 +15,18 @@ public class SongTextSaver {
         this.pathDirectory = pathDirectory;
     }
 
-    public void saveFile(SongInfo songInfo) {
-        File file = new File(pathDirectory + songInfo.getName() + ".txt");
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))){
-            for (String line : songInfo.getLines()) {
-                bufferedWriter.write(line);
-                bufferedWriter.newLine();
+    public void saveFile(List<SongInfo> songInfo) {
+        for (SongInfo info : songInfo) {
+            File file = new File(pathDirectory + info.getName() + ".txt");
+            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+                for (String line : info.getLines()) {
+                    bufferedWriter.write(line);
+                    bufferedWriter.newLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-//Todo добавить обработку Exception
     }
-
 }
 

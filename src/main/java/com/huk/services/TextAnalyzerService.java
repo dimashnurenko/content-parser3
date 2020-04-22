@@ -5,21 +5,23 @@ import com.huk.SongStatisticEntity;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 //управляет компонентами
 public class TextAnalyzerService {
 
     private final WebClient webClient;
-    private final WebPageParser webPageParser;
+    private final SongExtractor songExtractor;
     private final SongTextSaver songTextSaver;
     private final SongAnalyzer songAnalyzer;
     private final SongStatisticDao songStatisticDao;
 
-    public TextAnalyzerService(WebClient webClient, WebPageParser webPageParser,
+    public TextAnalyzerService(WebClient webClient, SongExtractor songExtractor,
                                SongTextSaver songTextSaver, SongAnalyzer songAnalyzer,
                                SongStatisticDao songStatisticDao) {
         this.webClient = webClient;
-        this.webPageParser = webPageParser;
+        this.songExtractor = songExtractor;
         this.songTextSaver = songTextSaver;
         this.songAnalyzer = songAnalyzer;
         this.songStatisticDao = songStatisticDao;
@@ -27,9 +29,9 @@ public class TextAnalyzerService {
 
     public void startAnalyzer(String url) {
         Document page = webClient.getPage(url);
-        SongInfo songInfo = webPageParser.parsWebPage(page);
+        List<SongInfo> songInfo = songExtractor.extractSong(page);
         songTextSaver.saveFile(songInfo);
-        SongStatisticEntity songStatisticEntity = songAnalyzer.analyzeSong(songInfo);
-        songStatisticDao.create(songStatisticEntity);
+        List<SongStatisticEntity> songStatisticEntity = songAnalyzer.analyzeSong(songInfo);
+        songStatisticDao.createAll(songStatisticEntity);
     }
 }
