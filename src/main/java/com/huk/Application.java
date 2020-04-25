@@ -17,7 +17,8 @@ public class Application {
         final String url = "https://teksty-pesenok.ru/jason-gray/tekst-pesni-a-way-to-see-in-the-dark/751911/";
 
         ConfigurableApplicationContext context = SpringApplication.run(Application.class,args);
-context.getBean(TextAnalyzerService.class).startAnalyzer(url);
+
+        context.getBean(TextAnalyzerService.class).startAnalyzer(url);
     }
 }
 

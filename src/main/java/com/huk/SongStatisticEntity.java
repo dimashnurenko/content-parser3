@@ -1,5 +1,7 @@
 package com.huk;
 
+import com.huk.enums.Language;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -26,6 +28,16 @@ public class SongStatisticEntity {
     private String mostPopularWords;
     @Column(name = "amount_unique_words")
     private Integer amountUniqueWords;
+    @Enumerated(EnumType.STRING)
+    private Language language;
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
 
     public Long getId() {
         return id;
