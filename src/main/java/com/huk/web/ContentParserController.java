@@ -45,7 +45,6 @@ public class ContentParserController {
         return statisticDto;
     }
 
-
     private StatisticDto convertToDto(SongStatisticEntity entity) {
         StatisticDto statisticDto = new StatisticDto();
         statisticDto.setId(entity.getId());
