@@ -15,10 +15,13 @@ public class SongStatisticDao {
     private SessionFactory sessionFactory;
 
     public SongStatisticDao(SessionFactory sessionFactory) {
-
         this.sessionFactory = sessionFactory;
     }
 
+    public SongStatisticEntity getById(Long id) {
+        return perform(session ->
+            session.get(SongStatisticEntity.class, id), "Statistic not found");
+    }
 
     public SongStatisticEntity create(SongStatisticEntity entity) {
         return perform(session -> {

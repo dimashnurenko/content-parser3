@@ -1,11 +1,10 @@
 package com.huk.web;
 
 import com.huk.SongStatisticEntity;
+import com.huk.services.SongStatisticDao;
 import com.huk.services.TextAnalyzerService;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.sun.xml.bind.v2.TODO;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,9 +14,13 @@ import java.util.List;
 @RequestMapping(value = "/statistics")
 public class ContentParserController {
 
+    private SongStatisticDao songStatisticDao;
+
     private TextAnalyzerService textAnalyzerService;
 
-    public ContentParserController(TextAnalyzerService textAnalyzerService) {
+    public ContentParserController(SongStatisticDao songStatisticDao,
+                                   TextAnalyzerService textAnalyzerService) {
+        this.songStatisticDao = songStatisticDao;
         this.textAnalyzerService = textAnalyzerService;
     }
 
@@ -35,6 +38,13 @@ public class ContentParserController {
         return statisticListDto;
     }
 
+    @GetMapping(value = "/{statistic_id}")
+    public StatisticDto getStatistics(@PathVariable("statistic_id") Long id) {
+        SongStatisticEntity byId = songStatisticDao.getById(id);
+        StatisticDto statisticDto = convertToDto(byId);
+        return statisticDto;
+    }
+
     private StatisticDto convertToDto(SongStatisticEntity entity) {
         StatisticDto statisticDto = new StatisticDto();
         statisticDto.setId(entity.getId());
@@ -47,5 +57,4 @@ public class ContentParserController {
         statisticDto.setLanguage(entity.getLanguage());
         return statisticDto;
     }
-
 }
