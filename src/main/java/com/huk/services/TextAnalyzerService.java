@@ -4,7 +4,7 @@ import com.huk.SongInfo;
 import com.huk.SongStatisticEntity;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -27,11 +27,15 @@ public class TextAnalyzerService {
         this.songStatisticDao = songStatisticDao;
     }
 
-    public void startAnalyzer(String url) {
-        Document page = webClient.getPage(url);
-        List<SongInfo> songInfo = songExtractor.extractSong(page);
-        songTextSaver.saveFile(songInfo);
-        List<SongStatisticEntity> songStatisticEntity = songAnalyzer.analyzeSong(songInfo);
-        songStatisticDao.createAll(songStatisticEntity);
+    public List<SongStatisticEntity> startAnalyzer(List<String> urls) {
+        List<SongStatisticEntity> entities = new ArrayList<>();
+        for (String url : urls) {
+            Document page = webClient.getPage(url);
+            List<SongInfo> songInfo = songExtractor.extractSong(page);
+            songTextSaver.saveFile(songInfo);
+            List<SongStatisticEntity> songStatisticEntity = songAnalyzer.analyzeSong(songInfo);
+            entities.addAll(songStatisticDao.createAll(songStatisticEntity));
+        }
+        return entities;
     }
 }

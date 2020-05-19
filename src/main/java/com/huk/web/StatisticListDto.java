@@ -9,7 +9,11 @@ public class StatisticListDto {
 
     private List<StatisticDto> content = new ArrayList<>();
     @JsonProperty("urls_count")
-    private Integer urlsCount  = 0;
+    private Integer urlsCount = 0;
+
+    public void addStatisticDto(StatisticDto statisticDto ){
+        content.add(statisticDto);
+    }
 
     public List<StatisticDto> getContent() {
         return content;

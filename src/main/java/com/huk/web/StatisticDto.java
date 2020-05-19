@@ -1,8 +1,10 @@
 package com.huk.web;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.huk.enums.Language;
 
 public class StatisticDto {
+    private Long id;
     @JsonProperty("content_url")
     private String contentUrl;
     private String lyrics;
@@ -14,10 +16,18 @@ public class StatisticDto {
     private String mostPopularWords;
     @JsonProperty("amount_unique_words")
     private Integer amountUniqueWords;
-    private String language;
+    private Language language;
 
     public String getContentUrl() {
         return contentUrl;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setContentUrl(String contentUrl) {
@@ -64,11 +74,11 @@ public class StatisticDto {
         this.amountUniqueWords = amountUniqueWords;
     }
 
-    public String getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(Language language) {
         this.language = language;
     }
 }
