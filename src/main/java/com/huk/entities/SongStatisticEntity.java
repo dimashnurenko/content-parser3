@@ -1,7 +1,6 @@
-package com.huk;
+package com.huk.entities;
 
 import com.huk.enums.Language;
-
 import javax.persistence.*;
 import java.util.Date;
 

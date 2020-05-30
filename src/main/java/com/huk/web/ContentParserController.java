@@ -1,11 +1,9 @@
 package com.huk.web;
 
-import com.huk.SongStatisticEntity;
-import com.huk.services.SongStatisticDao;
+import com.huk.entities.SongStatisticEntity;
+import com.huk.services.dao.SongStatisticDao;
 import com.huk.services.TextAnalyzerService;
-import com.sun.xml.bind.v2.TODO;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 //Спринг видит эту анатацию и Спринг создает его положит в контекст и этот обьект будет как сервлет

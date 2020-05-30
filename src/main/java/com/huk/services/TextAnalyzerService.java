@@ -1,7 +1,8 @@
 package com.huk.services;
 
 import com.huk.SongInfo;
-import com.huk.SongStatisticEntity;
+import com.huk.entities.SongStatisticEntity;
+import com.huk.services.dao.SongStatisticDao;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;

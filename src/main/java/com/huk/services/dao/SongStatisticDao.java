@@ -1,6 +1,6 @@
-package com.huk.services;
+package com.huk.services.dao;
 
-import com.huk.SongStatisticEntity;
+import com.huk.entities.SongStatisticEntity;
 import com.huk.exception.DaoException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

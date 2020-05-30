@@ -1,6 +1,6 @@
 package com.huk.services;
 
-import com.huk.SongStatisticEntity;
+import com.huk.entities.SongStatisticEntity;
 import com.huk.Word;
 
 import java.util.Map;

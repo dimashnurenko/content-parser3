@@ -1,8 +1,7 @@
 package com.huk.services;
 
-import com.huk.SongStatisticEntity;
+import com.huk.entities.SongStatisticEntity;
 import com.huk.Word;
-import com.huk.enums.Language;
 import org.springframework.stereotype.Component;
 import java.util.Map;
 import static com.huk.enums.Language.*;

@@ -1,7 +1,7 @@
 package com.huk.services;
 
 import com.huk.SongInfo;
-import com.huk.SongStatisticEntity;
+import com.huk.entities.SongStatisticEntity;
 import com.huk.Word;
 import org.springframework.stereotype.Component;
 
