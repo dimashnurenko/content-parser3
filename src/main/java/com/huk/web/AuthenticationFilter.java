@@ -4,7 +4,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.huk.enums.UserRole;
 import com.huk.exception.AuthException;
+import com.huk.services.Role;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,15 +23,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final String applicationSecretKey;
 
-    public AuthenticationFilter(AuthenticationManager authenticationManager,String applicationSecretKey){
+    public AuthenticationFilter(AuthenticationManager authenticationManager, String applicationSecretKey) {
         this.authenticationManager = authenticationManager;
-        this.applicationSecretKey = applicationSecretKey;    }
+        this.applicationSecretKey = applicationSecretKey;
+    }
 
     //метод пробует залогинить, идентификацировать нашего пользователя
     @Override
@@ -53,7 +58,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     //удачная идентификация, юзер наш
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+    protected void successfulAuthentication(HttpServletRequest request,
+                                            HttpServletResponse response,
+                                            FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
         Object principal = authResult.getPrincipal();
         if (!(principal instanceof User)) {
@@ -63,8 +70,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         User user = (User) principal;
 
         try {
-            String subject = new ObjectMapper().writeValueAsString(user);
-            Date expiresAt = new Date(System.currentTimeMillis() + 30_000);
+            String subject = new ObjectMapper().writeValueAsString(toUserModel(user));
+            Date expiresAt = new Date(System.currentTimeMillis() + 300_000);
             Algorithm algorithm = Algorithm.HMAC512(applicationSecretKey);
             String token = JWT.create().withSubject(subject).withExpiresAt(expiresAt).sign(algorithm);
             response.addHeader(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.AUTHORIZATION);
@@ -74,10 +81,19 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         }
     }
 
-    //неудачная идентификация, юзер не наш
-    @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                              AuthenticationException failed) throws IOException, ServletException {
-        response.getWriter().write("Authentication failed");
+    private com.huk.services.User toUserModel(User user) {
+        com.huk.services.User result = new com.huk.services.User();
+        result.setEmail(user.getUsername());
+
+        final List<Role> roles = user.getAuthorities()
+                                     .stream()
+                                     .map(authority -> {
+                                         final Role role = new Role();
+                                         role.setRole(UserRole.defineRole(authority.getAuthority()));
+                                         return role;
+                                     })
+                                     .collect(Collectors.toList());
+        result.setRoles(roles);
+        return result;
     }
 }

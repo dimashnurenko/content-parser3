@@ -18,8 +18,7 @@ public class UserEntity {
     @Column(name = "login")
     private String login;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<UserRoleEntity> userRoles = new ArrayList<>();
 
     public List<UserRoleEntity> getUserRoles() {

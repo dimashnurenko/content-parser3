@@ -10,9 +10,13 @@ public class UserRoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
     private UserRole role;
+
+    @ManyToOne
+    private UserEntity user;
 
     public Long getId() {
         return id;
@@ -28,5 +32,13 @@ public class UserRoleEntity {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 }

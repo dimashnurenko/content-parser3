@@ -7,6 +7,7 @@ import com.huk.exception.ResourceNotFoundException;
 import com.huk.services.dao.UserDao;
 import com.huk.web.CreateUserDto;
 import com.huk.web.UserDto;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -33,16 +34,15 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDto saveUser(CreateUserDto user) {
+        UserEntity userEntity = transformDtoToEntity(user);
+
         UserRoleEntity userRoleEntity = new UserRoleEntity();
         userRoleEntity.setRole(UserRole.USER);
-        UserEntity userEntity = transformDtoToEntity(user);
+        userRoleEntity.setUser(userEntity);
+
         userEntity.setUserRoles(Collections.singletonList(userRoleEntity));
         return transformEntityToDto(userDao.save(userEntity));
     }
-
-//    public void findUserByEmail(String email){
-//        userDao.findOneByEmail(email);
-//    }
 
     private UserEntity transformDtoToEntity(CreateUserDto user) {
         UserEntity userEntity = new UserEntity();
@@ -79,5 +79,10 @@ public class UserService implements UserDetailsService {
 
     private GrantedAuthority toAuthority(UserRoleEntity userRole) {
         return new SimpleGrantedAuthority((userRole.getRole().name()));
+    }
+
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public List<com.huk.services.User> getAllUsers() {
+        return Collections.emptyList();
     }
 }

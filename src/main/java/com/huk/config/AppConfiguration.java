@@ -1,9 +1,8 @@
-package com.huk;
+package com.huk.config;
 
 import com.huk.entities.SongStatisticEntity;
 import com.huk.entities.UserEntity;
 import com.huk.entities.UserRoleEntity;
-import com.huk.enums.UserRole;
 import com.huk.services.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

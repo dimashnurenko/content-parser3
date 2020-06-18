@@ -1,11 +1,10 @@
 package com.huk.web;
 
+import com.huk.services.User;
 import com.huk.services.UserService;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -24,9 +23,8 @@ public class UserController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured(value = "SUPER_ADMIN")
-    public List<UserDto> getAllUsers() {
-        return Collections.emptyList();
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 }
 
