@@ -2,6 +2,8 @@ package com.huk;
 
 import com.huk.entities.SongStatisticEntity;
 import com.huk.entities.UserEntity;
+import com.huk.entities.UserRoleEntity;
+import com.huk.enums.UserRole;
 import com.huk.services.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -37,12 +39,13 @@ public class AppConfiguration {
             settings.put(DRIVER, "org.postgresql.Driver");
             settings.put(URL, "jdbc:postgresql://localhost:5432/content-parser?useSSL=false");
             settings.put(USER, "postgres");
-            settings.put(PASS, "Gook7353110");
+            settings.put(PASS, "352575");
             settings.put(DIALECT, "org.hibernate.dialect.MySQL5Dialect");
             settings.put(SHOW_SQL, "true");
             configuration.setProperties(settings);
             configuration.addAnnotatedClass(SongStatisticEntity.class);
             configuration.addAnnotatedClass(UserEntity.class);
+            configuration.addAnnotatedClass(UserRoleEntity.class);
             ServiceRegistry serviceRegistry =
                     new StandardServiceRegistryBuilder().applySettings(configuration.getProperties())
                                                         .build();

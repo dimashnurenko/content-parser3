@@ -4,6 +4,7 @@ import com.huk.SongInfo;
 import com.huk.entities.SongStatisticEntity;
 import com.huk.services.dao.SongStatisticDao;
 import org.jsoup.nodes.Document;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class TextAnalyzerService {
     }
 
     public List<SongStatisticEntity> startAnalyzer(List<String> urls) {
+        //SecurityContextHolder.getContext().getAuthentication().getPrincipal();//это будет User
         List<SongStatisticEntity> entities = new ArrayList<>();
         for (String url : urls) {
             Document page = webClient.getPage(url);

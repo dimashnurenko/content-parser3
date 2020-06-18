@@ -1,6 +1,8 @@
 package com.huk.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -15,6 +17,18 @@ public class UserEntity {
     private String password;
     @Column(name = "login")
     private String login;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<UserRoleEntity> userRoles = new ArrayList<>();
+
+    public List<UserRoleEntity> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRoleEntity> userRoles) {
+        this.userRoles = userRoles;
+    }
 
     public Long getId() {
         return id;
