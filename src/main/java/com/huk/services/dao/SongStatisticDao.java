@@ -7,15 +7,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 
+import javax.persistence.EntityManagerFactory;
 import java.util.List;
 import java.util.function.Function;
 
 @Component
 public class SongStatisticDao {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
-    public SongStatisticDao(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public SongStatisticDao(EntityManagerFactory entityManagerFactory) {
+        this.sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
     }
 
     public SongStatisticEntity getById(Long id) {
