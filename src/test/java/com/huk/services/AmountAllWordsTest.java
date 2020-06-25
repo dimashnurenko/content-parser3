@@ -4,10 +4,11 @@ import com.huk.Word;
 import com.huk.entities.SongStatisticEntity;
 import com.huk.exception.TextAnalyzerServiceException;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class AmountAllWordsTest {
@@ -24,7 +25,7 @@ public class AmountAllWordsTest {
 
         wordFunction.apply(wordsMap, statisticEntity);
 
-        Assertions.assertEquals(statisticEntity.getTotalWordsAmount(), 2);
+        assertEquals(statisticEntity.getTotalWordsAmount(), 2);
     }
 
     @Test
@@ -35,7 +36,7 @@ public class AmountAllWordsTest {
 
         wordFunction.apply(wordsMap, statisticEntity);
 
-        Assertions.assertEquals(statisticEntity.getTotalWordsAmount(), 0);
+        assertEquals(statisticEntity.getTotalWordsAmount(), 0);
     }
 
     @Test(expected = TextAnalyzerServiceException.class)
