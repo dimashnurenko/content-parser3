@@ -12,9 +12,8 @@ import java.util.List;
 @RequestMapping(value = "/statistics")
 public class ContentParserController {
 
-    private SongStatisticDao songStatisticDao;
-
-    private TextAnalyzerService textAnalyzerService;
+    private final SongStatisticDao songStatisticDao;
+    private final TextAnalyzerService textAnalyzerService;
 
     public ContentParserController(SongStatisticDao songStatisticDao,
                                    TextAnalyzerService textAnalyzerService) {
